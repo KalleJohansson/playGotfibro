@@ -1,12 +1,9 @@
 package controllers;
 
-import play.mvc.*;
-import play.data.*;
-import static play.data.Form.*;
-
-import views.html.*;
-
-import models.*;
+import models.Member;
+import play.mvc.Controller;
+import play.mvc.Result;
+import views.html.list;
 
 /**
  * Manage a database of computers

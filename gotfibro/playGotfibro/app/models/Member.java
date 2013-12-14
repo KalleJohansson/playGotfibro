@@ -1,12 +1,16 @@
 package models;
 
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
-import com.avaje.ebean.Page;
-
 import play.db.ebean.Model;
+
+import com.avaje.ebean.Page;
 
 @Entity
 public class Member extends Model {
@@ -31,6 +35,15 @@ public class Member extends Model {
 	
 	@OneToOne(mappedBy="member")
 	public MemberInfo memberInfo;
+	
+	@OneToOne(mappedBy="member")
+	public MemberFixedPhone memberFixedPhone;
+	
+	@OneToOne(mappedBy="member")
+	public MemberMobilePhone memberMobilePhone;
+	
+	@OneToOne(mappedBy="member")
+	public MemberEmail memberEmail;
 	
 	public static Finder<Integer, Member> find = new Finder<Integer, Member>(
 				Integer.class, Member.class

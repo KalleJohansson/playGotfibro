@@ -72,10 +72,12 @@
                     @header("postcode", "Postnummer")
                     @header("postal", "Postort")
                     @header("memberInfo.birthday", "Födelsedag")
+                    @header("memberFixedPhone.phonenumber", "Telefon")
+                    @header("memberMobilePhone.phonenumber", "Mobil")
+                    @header("memberEmail.email", "E-post")
                 </tr>
             </thead>
             <tbody>
-
                 @for(member <- currentPage.getList) {
                     <tr>
                         <td><a href="#@*@routes.Application.edit(member.id)*@">@member.firstname @member.lastname</a></td>
@@ -107,9 +109,29 @@
                                 @member.memberInfo.birthday
                             }
                         </td>
+                        <td>
+                            @if(member.memberFixedPhone == null) {
+                                <em>-</em>
+                            } else {
+                            	@member.memberFixedPhone.phonenumber
+                            }
+                        </td>
+                        <td>
+                            @if(member.memberMobilePhone == null) {
+                                <em>-</em>
+                            } else {
+                                @member.memberMobilePhone.phonenumber
+                            }
+                        </td>
+                        <td>
+                            @if(member.memberEmail == null) {
+                                <em>-</em>
+                            } else {
+                                @member.memberEmail.email
+                            }
+                        </td>
                     </tr>
                 }
-
             </tbody>
         </table>
 
