@@ -1,11 +1,9 @@
 package models;
 
-import java.util.List;
-
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
 import play.db.ebean.Model;
@@ -45,13 +43,18 @@ public class Member extends Model {
 	@OneToOne(mappedBy="member")
 	public MemberEmail memberEmail;
 	
+	@ManyToOne
+	@JoinColumn(name="id")
+	public MemberMembership memberMembership;
+	
 	public static Finder<Integer, Member> find = new Finder<Integer, Member>(
 				Integer.class, Member.class
 			);
 	
-	public static Page<Member> page(int page, int pageSize, String sortBy, String order) {
+	public static Page<Member> page(int page, int pageSize, String sortBy, String order, int filter) {
 		return find
 				.where()
+				.ilike("memberMembership.membership_year", "%" + filter + "%")
 				.orderBy(sortBy + " " + order)
 				.findPagingList(pageSize)
 				.setFetchAhead(false)

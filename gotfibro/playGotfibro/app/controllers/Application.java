@@ -3,7 +3,7 @@ package controllers;
 import models.Member;
 import play.mvc.Controller;
 import play.mvc.Result;
-import views.html.list;
+import views.html.*;
 
 /**
  * Manage a database of computers
@@ -14,7 +14,7 @@ public class Application extends Controller {
      * This result directly redirect to application home.
      */
     public static Result GO_HOME = redirect(
-        routes.Application.list(0, "lastname", "asc")
+        routes.Application.list(0, "lastname", "asc", 1)
     );
     
     /**
@@ -32,13 +32,8 @@ public class Application extends Controller {
      * @param order Sort order (either asc or desc)
      * @param filter Filter applied on computer names
      */
-    public static Result list(int page, String sortBy, String order) {
-        return ok(
-            list.render(
-                Member.page(page, 10, sortBy, order),
-                sortBy, order
-            )
-        );
+    public static Result list(int page, String sortBy, String order, int filter) {
+        return ok(list.render(Member.page(page, 10, sortBy, order, filter), sortBy, order, filter));
     }
     
 //    /**
