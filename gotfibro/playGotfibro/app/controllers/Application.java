@@ -1,9 +1,10 @@
 package controllers;
 
 import models.Member;
+import models.MembershipYear;
 import play.mvc.Controller;
 import play.mvc.Result;
-import views.html.*;
+import views.html.list;
 
 /**
  * Manage a database of computers
@@ -33,7 +34,12 @@ public class Application extends Controller {
      * @param filter Filter applied on computer names
      */
     public static Result list(int page, String sortBy, String order, int filter) {
-        return ok(list.render(Member.page(page, 10, sortBy, order, filter), sortBy, order, filter));
+        return ok(
+        		list.render(
+        				Member.page(page, 10, sortBy, order, filter), 
+        				sortBy, order, filter, MembershipYear.find.all()
+        				)
+        		);
     }
     
 //    /**

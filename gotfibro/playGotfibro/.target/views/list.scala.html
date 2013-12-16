@@ -1,4 +1,6 @@
-@(currentPage: com.avaje.ebean.Page[Member], currentSortBy: String, currentOrder: String, currentFilter: Int)
+@(currentPage: com.avaje.ebean.Page[Member], 
+currentSortBy: String, currentOrder: String, 
+currentFilter: Int, availableYears: List[MembershipYear])
 
 @****************************************
 * Helper generating navigation links    *
@@ -50,6 +52,14 @@
         <form action="@link(0, "name")" method="GET">
             @*<input type="search" id="searchbox" name="f" value="@currentFilter" placeholder="Filter by computer name...">*@
             <input type="submit" id="searchsubmit" value="Filter by name" class="btn primary">
+        </form>
+        <form action="@link(currentPage.getPageIndex, "memberMembership.membership_year")" method="GET">
+        	<select name="f" value="@currentFilter">
+        	@for(memberShipYear <- availableYears) {
+        		<option value="@memberShipYear.year_id">@memberShipYear.year</option>
+        	}
+        	</select>
+        	<input type="submit" value="Visa valt år">
         </form>
         
         @*<a class="btn success" id="add" href="@routes.Application.create()">Add a new computer</a>*@
