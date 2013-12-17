@@ -5,7 +5,7 @@ currentFilter: Int, availableYears: List[MembershipYear])
 @****************************************
 * Helper generating navigation links    *
 ****************************************@
-@link(newPage:Int, newSortBy:String) = @{
+@link(newPage:Int, newSortBy:String, currentYear:Int) = @{
     
     var sortBy = currentSortBy
     var order = currentOrder
@@ -24,7 +24,7 @@ currentFilter: Int, availableYears: List[MembershipYear])
     }
     
     // Generate the link
-    routes.Application.list(newPage, sortBy, order)
+    routes.Application.list(newPage, sortBy, order, currentYear)
     
 }
 
@@ -33,7 +33,7 @@ currentFilter: Int, availableYears: List[MembershipYear])
 ***********************************@
 @header(key:String, title:String) = {
     <th class="@key.replace(".","_") header @if(currentSortBy == key) @{if(currentOrder == "asc") "headerSortDown" else "headerSortUp"}">
-        <a href="@link(0, key)">@title</a>
+        <a href="@link(0, key, currentFilter)">@title</a>
     </th>
 }
 
@@ -49,11 +49,11 @@ currentFilter: Int, availableYears: List[MembershipYear])
 
     <div id="actions">
         
-        <form action="@link(0, "name")" method="GET">
+        <form action="@link(0, "name", 0)" method="GET">
             @*<input type="search" id="searchbox" name="f" value="@currentFilter" placeholder="Filter by computer name...">*@
             <input type="submit" id="searchsubmit" value="Filter by name" class="btn primary">
         </form>
-        <form action="@link(currentPage.getPageIndex, "memberMembership.membership_year")" method="GET">
+        <form action="@link(0, "name", 0)" method="GET">
         	<select name="f" value="@currentFilter">
         	@for(memberShipYear <- availableYears) {
         		<option value="@memberShipYear.year_id">@memberShipYear.year</option>
@@ -153,7 +153,7 @@ currentFilter: Int, availableYears: List[MembershipYear])
             <ul>
                 @if(currentPage.hasPrev) {
                     <li class="prev">
-                        <a href="@link(currentPage.getPageIndex - 1, null)">&larr; Previous</a>
+                        <a href="@link(currentPage.getPageIndex - 1, null, currentFilter)">&larr; Previous</a>
                     </li>
                 } else {
                     <li class="prev disabled">
@@ -165,7 +165,7 @@ currentFilter: Int, availableYears: List[MembershipYear])
                 </li>
                 @if(currentPage.hasNext) {
                     <li class="next">
-                        <a href="@link(currentPage.getPageIndex + 1, null)">Next &rarr;</a>
+                        <a href="@link(currentPage.getPageIndex + 1, null, currentFilter)">Next &rarr;</a>
                     </li>
                 } else {
                     <li class="next disabled">
