@@ -1,0 +1,41 @@
+@(id: Int, memberForm: Form[Member])
+
+@import helper._
+
+@implicitFieldConstructor = @{ FieldConstructor(twitterBootstrapInput.render) } 
+
+@main("Redigera medlemsuppgifter"){
+    
+    <h1>Redigera medlemsuppgifter</h1>
+    
+    @form(routes.Application.update(id)) {
+        
+        <fieldset>
+        
+            @inputText(memberForm("firstname"), '_label -> "Förnamn")
+            @inputText(memberForm("lastname"), '_label -> "Efternamn")
+            @inputText(memberForm("address"), '_label -> "Gatuadress")
+            @inputText(memberForm("postcode"), '_label -> "Postnummer")
+            @inputText(memberForm("postal"), '_label -> "Postort")
+            
+            @*@select(
+                computerForm("company.id"), 
+                options(Company.options), 
+                '_label -> "Company", '_default -> "-- Choose a company --",
+                '_showConstraints -> false
+            )*@
+        
+        </fieldset>
+        
+        <div class="actions">
+            <input type="submit" value="Spara medlemsuppgifterna" class="btn primary"> or 
+            <a href="@routes.Application.list()" class="btn">Cancel</a> 
+        </div>
+        
+    }
+    
+    @form(routes.Application.delete(id), 'class -> "topRight") {
+        <input type="submit" value="Ta bort medlemmen" class="btn danger">
+    }
+    
+}

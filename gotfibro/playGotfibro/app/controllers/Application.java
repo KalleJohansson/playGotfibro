@@ -2,9 +2,11 @@ package controllers;
 
 import models.Member;
 import models.MembershipYear;
+import play.data.*;
 import play.mvc.Controller;
 import play.mvc.Result;
-import views.html.list;
+import views.html.*;
+import static play.data.Form.*;
 
 /**
  * Manage a database of computers
@@ -42,34 +44,34 @@ public class Application extends Controller {
         		);
     }
     
-//    /**
-//     * Display the 'edit form' of a existing Computer.
-//     *
-//     * @param id Id of the computer to edit
-//     */
-//    public static Result edit(Long id) {
-//        Form<Computer> computerForm = form(Computer.class).fill(
-//            Computer.find.byId(id)
-//        );
-//        return ok(
-//            editForm.render(id, computerForm)
-//        );
-//    }
+    /**
+     * Display the 'edit form' of a existing Computer.
+     *
+     * @param id Id of the computer to edit
+     */
+    public static Result edit(Integer id) {
+        Form<Member> memberForm = form(Member.class).fill(
+        		Member.find.byId(id)
+        );
+        return ok(
+            editForm.render(id, memberForm)
+        );
+    }
     
-//    /**
-//     * Handle the 'edit form' submission 
-//     *
-//     * @param id Id of the computer to edit
-//     */
-//    public static Result update(Long id) {
-//        Form<Computer> computerForm = form(Computer.class).bindFromRequest();
-//        if(computerForm.hasErrors()) {
-//            return badRequest(editForm.render(id, computerForm));
-//        }
-//        computerForm.get().update(id);
-//        flash("success", "Computer " + computerForm.get().name + " has been updated");
-//        return GO_HOME;
-//    }
+    /**
+     * Handle the 'edit form' submission 
+     *
+     * @param id Id of the computer to edit
+     */
+    public static Result update(Integer id) {
+        Form<Member> memberForm = form(Member.class).bindFromRequest();
+        if(memberForm.hasErrors()) {
+            return badRequest(editForm.render(id, memberForm));
+        }
+        memberForm.get().update(id);
+        flash("success", "Medlemmen " + memberForm.get().firstname + "s uppgifter har ändrats");
+        return GO_HOME;
+    }
     
 //    /**
 //     * Display the 'new computer form'.
@@ -94,14 +96,14 @@ public class Application extends Controller {
 //        return GO_HOME;
 //    }
     
-//    /**
-//     * Handle computer deletion
-//     */
-//    public static Result delete(Long id) {
-//        Computer.find.ref(id).delete();
-//        flash("success", "Computer has been deleted");
-//        return GO_HOME;
-//    }
+    /**
+     * Handle computer deletion
+     */
+    public static Result delete(Integer id) {
+        Member.find.ref(id).delete();
+        flash("success", "Medlemmen har tagits bort");
+        return GO_HOME;
+    }
     
 
 }
