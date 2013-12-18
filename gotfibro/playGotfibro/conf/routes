@@ -6,7 +6,7 @@
 GET     /                           controllers.Application.index()
 
 # Members list (look at the default values for pagination parameters)
-GET     /members                    controllers.Application.list(p:Int ?= 0, s ?= "lastname", o ?= "asc", f:Int ?= 3)
+GET     /members                    controllers.Application.list(p:Int ?= 0, s ?= "lastname", o ?= "asc", f:String ?= "3")
 
 # Edit existing computer
 GET     /members/:id              controllers.Application.edit(id:Int)

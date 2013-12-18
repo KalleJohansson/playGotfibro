@@ -1,11 +1,13 @@
 package models;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
+import play.Logger;
 import play.db.ebean.Model;
 
 import com.avaje.ebean.Page;
@@ -34,13 +36,16 @@ public class Member extends Model {
 	@OneToOne(mappedBy="member")
 	public MemberInfo memberInfo;
 	
-	@OneToOne(mappedBy="member")
+	@OneToOne(mappedBy="member", 
+			cascade=CascadeType.ALL)
 	public MemberFixedPhone memberFixedPhone;
 	
-	@OneToOne(mappedBy="member")
+	@OneToOne(mappedBy="member", 
+			cascade=CascadeType.ALL)
 	public MemberMobilePhone memberMobilePhone;
 	
-	@OneToOne(mappedBy="member")
+	@OneToOne(mappedBy="member", 
+			cascade=CascadeType.ALL)
 	public MemberEmail memberEmail;
 	
 	@ManyToOne
@@ -51,7 +56,8 @@ public class Member extends Model {
 				Integer.class, Member.class
 			);
 	
-	public static Page<Member> page(int page, int pageSize, String sortBy, String order, int filter) {
+	public static Page<Member> page(int page, int pageSize, String sortBy, String order, String filter) {
+		Logger.info("Year no " + filter);
 		return find
 				.where()
 				.ilike("memberMembership.membership_year", "%" + filter + "%")

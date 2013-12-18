@@ -1,12 +1,13 @@
 package controllers;
 
+import static play.data.Form.form;
 import models.Member;
 import models.MembershipYear;
-import play.data.*;
+import play.data.Form;
 import play.mvc.Controller;
 import play.mvc.Result;
-import views.html.*;
-import static play.data.Form.*;
+import views.html.editForm;
+import views.html.list;
 
 /**
  * Manage a database of computers
@@ -17,7 +18,7 @@ public class Application extends Controller {
      * This result directly redirect to application home.
      */
     public static Result GO_HOME = redirect(
-        routes.Application.list(0, "lastname", "asc", 1)
+        routes.Application.list(0, "lastname", "asc", "1")
     );
     
     /**
@@ -35,7 +36,7 @@ public class Application extends Controller {
      * @param order Sort order (either asc or desc)
      * @param filter Filter applied on computer names
      */
-    public static Result list(int page, String sortBy, String order, int filter) {
+    public static Result list(int page, String sortBy, String order, String filter) {
         return ok(
         		list.render(
         				Member.page(page, 10, sortBy, order, filter), 
@@ -65,6 +66,7 @@ public class Application extends Controller {
      */
     public static Result update(Integer id) {
         Form<Member> memberForm = form(Member.class).bindFromRequest();
+        
         if(memberForm.hasErrors()) {
             return badRequest(editForm.render(id, memberForm));
         }

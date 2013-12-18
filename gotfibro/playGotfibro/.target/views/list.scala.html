@@ -1,11 +1,11 @@
 @(currentPage: com.avaje.ebean.Page[Member], 
 currentSortBy: String, currentOrder: String, 
-currentFilter: Int, availableYears: List[MembershipYear])
+currentFilter: String, availableYears: List[MembershipYear])
 
 @****************************************
 * Helper generating navigation links    *
 ****************************************@
-@link(newPage:Int, newSortBy:String, currentYear:Int) = @{
+@link(newPage:Int, newSortBy:String, currentYear:String) = @{
     
     var sortBy = currentSortBy
     var order = currentOrder
@@ -43,17 +43,17 @@ currentFilter: Int, availableYears: List[MembershipYear])
 
     @if(flash.containsKey("success")) {
         <div class="alert-message warning">
-            <strong>Done!</strong> @flash.get("success")
+            <strong>Klart!</strong> @flash.get("success")
         </div>
     } 
 
     <div id="actions">
         
-        <form action="@link(0, "name", 0)" method="GET">
+        <form action="@link(0, "name", "0")" method="GET">
             @*<input type="search" id="searchbox" name="f" value="@currentFilter" placeholder="Filter by computer name...">*@
             <input type="submit" id="searchsubmit" value="Filter by name" class="btn primary">
         </form>
-        <form action="@link(0, "name", 0)" method="GET">
+        <form action="@link(0, "name", "0")" method="GET">
         	<select name="f" value="@currentFilter">
         	@for(memberShipYear <- availableYears) {
         		<option value="@memberShipYear.year_id">@memberShipYear.year</option>
