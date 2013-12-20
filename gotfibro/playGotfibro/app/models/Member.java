@@ -7,7 +7,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
-import play.Logger;
 import play.db.ebean.Model;
 
 import com.avaje.ebean.Page;
@@ -57,7 +56,6 @@ public class Member extends Model {
 			);
 	
 	public static Page<Member> page(int page, int pageSize, String sortBy, String order, String filter) {
-		Logger.info("Year no " + filter);
 		return find
 				.where()
 				.ilike("memberMembership.membership_year", "%" + filter + "%")

@@ -6,7 +6,6 @@ import models.MemberEmail;
 import models.MemberFixedPhone;
 import models.MemberMobilePhone;
 import models.MembershipYear;
-import play.Logger;
 import play.data.Form;
 import play.mvc.Controller;
 import play.mvc.Result;
@@ -74,7 +73,6 @@ public class Application extends Controller {
         if(memberForm.hasErrors()) {
             return badRequest(editForm.render(id, memberForm));
         }
-        Logger.info("Email " + memberForm.get().memberEmail.email);
         MemberEmail mE = memberForm.get().memberEmail;
         MemberMobilePhone mMP = memberForm.get().memberMobilePhone;
         MemberFixedPhone mFP = memberForm.get().memberFixedPhone;
