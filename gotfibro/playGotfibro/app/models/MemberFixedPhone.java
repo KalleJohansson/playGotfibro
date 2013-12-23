@@ -16,11 +16,11 @@ public class MemberFixedPhone extends Model {
 	private static final long serialVersionUID = -4415116847842831325L;
 
 	@Id
-	public int member_id;
+	public int memberid;
 	
 	public String phonenumber;
 	
 	@OneToOne
-	@JoinColumn(name="member_id")
+	@JoinColumn(name="memberid")
 	public Member member;
 }

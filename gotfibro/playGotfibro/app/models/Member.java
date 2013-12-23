@@ -1,15 +1,24 @@
 package models;
 
+import java.util.List;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 import play.db.ebean.Model;
 
+import com.avaje.ebean.Ebean;
 import com.avaje.ebean.Page;
+import com.avaje.ebean.Query;
+import com.avaje.ebean.RawSql;
+import com.avaje.ebean.RawSqlBuilder;
+import com.avaje.ebean.SqlQuery;
+import com.avaje.ebean.SqlRow;
 
 @Entity
 public class Member extends Model {
@@ -51,6 +60,22 @@ public class Member extends Model {
 	@JoinColumn(name="id")
 	public MemberMembership memberMembership;
 	
+//	@OneToMany(mappedBy="member")
+//	public List<MemberMembership> memberShips;
+	
+	public List<MemberMembership> myMembership(){
+		List<MemberMembership> ms 
+				= MemberMembership.find
+				.where()
+				.eq("memberid", this.id)
+				.findList();
+		return ms;
+	}
+	
+	public List<MembershipYear> allYears(){
+		return MembershipYear.find.all();
+	}
+	
 	public static Finder<Integer, Member> find = new Finder<Integer, Member>(
 				Integer.class, Member.class
 			);
@@ -58,10 +83,10 @@ public class Member extends Model {
 	public static Page<Member> page(int page, int pageSize, String sortBy, String order, String filter) {
 		return find
 				.where()
-				.ilike("memberMembership.membership_year", "%" + filter + "%")
+				.ilike("memberMembership.membershipyear", "%" + filter + "%")
 				.orderBy(sortBy + " " + order)
 				.findPagingList(pageSize)
-				.setFetchAhead(false)
+				.setFetchAhead(true)
 				.getPage(page);
 	}
 }

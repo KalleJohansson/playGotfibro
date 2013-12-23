@@ -20,7 +20,19 @@
             @inputText(memberForm("memberFixedPhone.phonenumber"), '_label -> "Telefon")
             @inputText(memberForm("memberMobilePhone.phonenumber"), '_label -> "Mobil")
             @inputText(memberForm("memberEmail.email"), '_label -> "E-post")
-            
+     		
+     		
+     		@for(memberShip <- memberForm.get().myMembership()) {
+     			<p style="margin-left:10px;">@memberShip.memberid @memberShip.membershipyear</p>
+     		}
+     		
+            @for(memberShipYear <- memberForm.get().allYears()) {
+            	<input type="checkbox" 
+            		name="memberShipYear" 
+            		value="@memberShipYear.year"
+            		checked="checked"
+            		>@memberShipYear.yearid @memberShipYear.year <br />
+            }
             @*@select(
                 computerForm("company.id"), 
                 options(Company.options), 
@@ -29,7 +41,7 @@
             )*@
         
         </fieldset>
-        
+        @*<p>@memberForm.get().memberShips.size()</p>*@
         <div class="actions">
             <input type="submit" value="Spara medlemsuppgifterna" class="btn primary"> or 
             <a href="@routes.Application.list()" class="btn">Cancel</a> 

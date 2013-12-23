@@ -56,7 +56,7 @@ currentFilter: String, availableYears: List[MembershipYear])
         <form action="@link(0, "name", "0")" method="GET">
         	<select name="f" value="@currentFilter">
         	@for(memberShipYear <- availableYears) {
-        		<option value="@memberShipYear.year_id">@memberShipYear.year</option>
+        		<option value="@memberShipYear.yearid">@memberShipYear.year</option>
         	}
         	</select>
         	<input type="submit" value="Visa valt år">
@@ -142,7 +142,7 @@ currentFilter: String, availableYears: List[MembershipYear])
                             }
                         </td>
                         <td>
-                        	@member.memberMembership.membership_type		
+                        	@member.memberMembership.membershiptype		
                         </td>
                     </tr>
                 }

@@ -16,11 +16,11 @@ public class MemberInfo extends Model {
 	private static final long serialVersionUID = 7733931381681664666L;
 
 	@Id
-	public int member_id;
+	public int memberid;
 	
 	public String birthday;
 	
 	@OneToOne
-	@JoinColumn(name="member_id")
+	@JoinColumn(name="memberid")
 	public Member member;
 }

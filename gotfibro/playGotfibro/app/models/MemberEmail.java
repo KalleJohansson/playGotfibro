@@ -16,11 +16,11 @@ public class MemberEmail extends Model {
 	private static final long serialVersionUID = -7642516896233030997L;
 
 	@Id
-	public int member_id;
+	public int memberid;
 	
 	public String email;
 	
 	@OneToOne
-	@JoinColumn(name="member_id")
+	@JoinColumn(name="memberid")
 	public Member member;
 }
